@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="container">
+               
+        </div>
+    </body>
+    <script>
+        const container = document.querySelector('.container');
+        
+        for (i = 0; i < 256; i++) {
+            const div = document.createElement('div');
+            div.style.border = '2px solid';
+            
+            div.style.padding ='0.1em'
+            container.appendChild(div);
+        }
+
+        const divList = container.querySelectorAll('div');
+
+        function addColor(e) {
+            e.style.backgroundColor = 'blue';
+            
+            console.log('hi');
+        }
+        container.addEventListener('mouseover', function (event) {
+            if (event.target.classList == 'container') {
+                /*put some code here?*/
+            }
+            else {
+                event.target.style.backgroundColor = 'blue';}
+        })
+        console.log(divList);
+    </script>
+</html>

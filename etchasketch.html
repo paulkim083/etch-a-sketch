@@ -10,6 +10,8 @@
                
         </div>
         <button id="changeSize">Change size</button>
+        <button id="rainbow">Rainbow</button>
+        <button id="clear">Clear</button>
     </body>
     <script>
         const container = document.querySelector('.container');
@@ -30,7 +32,9 @@
                 container.appendChild(div);
         }
         }
-        const divList = container.querySelectorAll('div');
+
+
+        let divList = container.querySelectorAll('div');
 
        
         container.addEventListener('mouseover', function (event) {
@@ -42,24 +46,37 @@
         })
 
         const button = document.querySelector('#changeSize');
-        console.log(button);
+        
+
+        const clear = document.querySelector('#clear');
+        clear.addEventListener('click', function() { 
+            divList.forEach(div => div.style.backgroundColor = 'white')
+        })
+
         button.addEventListener('click', function (event) {
             if (event.target.getAttribute('id') == 'changeSize') {
                 const userInput = window.prompt('Pick a size! (Up to 64)');
+
             if (userInput > 0 && userInput <= 64) {
                 while(container.firstChild){
                     container.removeChild(container.firstChild);
                 }
                 totalNum = userInput * userInput;
                 addDivs(totalNum);
+                divList = container.querySelectorAll('div');
 
-                const gridSize = 640/userInput;
-                document.documentElement.style.setProperty('--grid', `repeat(${userInput},${gridSize}px)`);
+                const divSize = 512/userInput;
+                document.documentElement.style.setProperty('--grid', `repeat(${userInput},${divSize}px)`);
             }
             else alert('Invalid');
             }
                 
-            
+        const rainbowButton = document.querySelector('#rainbow'); 
+        rainbowButton.addEventListener('click', function(event) {
+            console.log('hi!');
+        })   
+
+        
         });
         
     </script>

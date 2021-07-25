@@ -1,25 +1,31 @@
 :root {
-    --grid: repeat(16, 40px);
-    
+    --grid: repeat(16, 32px);
+    --background-color: white;
 }
 
 .container {
-    width: 640px;
-    height: 640px;
+    width: 511px;
+    height: 511px;
     margin: auto;
     display: grid;
     grid-template-columns: var(--grid);
     grid-template-rows: var(--grid);
-    border: 2px solid red;
+    border: 2px solid;
     grid-gap: 0px;
     margin-top: 3em;
-    
+    background-color var(--background-color);
 }
 
 button {
-    display: block;
-    margin: auto;
+    display: inline-block;
+    text-align: center;
+    margin: 0 auto;
     margin-top: 5em;
+    height: 3em; 
+    border-radius: 10px; 
+    background-color: black;
+    color: white; 
+    padding: 1em; 
 }
 
 h1 {

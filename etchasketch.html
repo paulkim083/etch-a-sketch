@@ -5,9 +5,11 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
+        <h1>Etch-a-Sketch!</h1>
         <div class="container">
                
         </div>
+        <button id="changeSize">Change size</button>
     </body>
     <script>
         const container = document.querySelector('.container');
@@ -19,14 +21,18 @@
             div.style.padding ='0.1em'
             container.appendChild(div);
         }
-
+        function addDivs(totalNum) {
+            for (i = 0; i < totalNum; i++) {
+                const div = document.createElement('div');
+                div.style.border = '2px solid';
+                
+                div.style.padding ='0.1em'
+                container.appendChild(div);
+        }
+        }
         const divList = container.querySelectorAll('div');
 
-        function addColor(e) {
-            e.style.backgroundColor = 'blue';
-            
-            console.log('hi');
-        }
+       
         container.addEventListener('mouseover', function (event) {
             if (event.target.classList == 'container') {
                 /*put some code here?*/
@@ -34,6 +40,27 @@
             else {
                 event.target.style.backgroundColor = 'blue';}
         })
-        console.log(divList);
+
+        const button = document.querySelector('#changeSize');
+        console.log(button);
+        button.addEventListener('click', function (event) {
+            if (event.target.getAttribute('id') == 'changeSize') {
+                const userInput = window.prompt('Pick a size! (Up to 64)');
+            if (userInput > 0 && userInput <= 64) {
+                while(container.firstChild){
+                    container.removeChild(container.firstChild);
+                }
+                totalNum = userInput * userInput;
+                addDivs(totalNum);
+
+                const gridSize = 640/userInput;
+                document.documentElement.style.setProperty('--grid', `repeat(${userInput},${gridSize}px)`);
+            }
+            else alert('Invalid');
+            }
+                
+            
+        });
+        
     </script>
 </html>

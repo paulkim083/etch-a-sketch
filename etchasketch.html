@@ -9,9 +9,11 @@
         <div class="container">
                
         </div>
-        <button id="changeSize">Change size</button>
-        <button id="rainbow">Rainbow</button>
-        <button id="clear">Clear</button>
+        <div id="buttons">
+            <button id="changeSize">Change size</button>
+            <button id="rainbow">Rainbow</button>
+            <button id="clear">Clear</button>
+        </div>
     </body>
     <script>
         const container = document.querySelector('.container');
@@ -19,7 +21,7 @@
         for (i = 0; i < 256; i++) {
             const div = document.createElement('div');
             div.style.border = '2px solid';
-            
+            div.style.backgroundColor = 'white';
             div.style.padding ='0.1em'
             container.appendChild(div);
         }
@@ -27,7 +29,7 @@
             for (i = 0; i < totalNum; i++) {
                 const div = document.createElement('div');
                 div.style.border = '2px solid';
-                
+                div.style.backgroundColor = 'white';
                 div.style.padding ='0.1em'
                 container.appendChild(div);
         }
@@ -35,15 +37,31 @@
 
 
         let divList = container.querySelectorAll('div');
-
-       
-        container.addEventListener('mouseover', function (event) {
+        let counter = 0;
+        function setColor(event) {
+            
             if (event.target.classList == 'container') {
                 /*put some code here?*/
             }
-            else {
-                event.target.style.backgroundColor = 'blue';}
-        })
+            else if (counter == 0 || (counter % 2) == 0) {
+                event.target.style.backgroundColor = 'black';
+               
+                
+            }
+            else if ((counter % 2) == 1) {
+                
+                let randomColor = Math.floor(Math.random()*16777215).toString(16);
+                
+                if (event.target.style.backgroundColor == 'white' || event.target.style.backgroundColor == 'black') {
+                    event.target.style.backgroundColor = `#${randomColor}`;  
+                    
+                }
+            }
+        }
+
+
+
+        container.addEventListener('mouseover', setColor);
 
         const button = document.querySelector('#changeSize');
         
@@ -52,12 +70,13 @@
         clear.addEventListener('click', function() { 
             divList.forEach(div => div.style.backgroundColor = 'white')
         })
-
+        
         button.addEventListener('click', function (event) {
             if (event.target.getAttribute('id') == 'changeSize') {
                 const userInput = window.prompt('Pick a size! (Up to 64)');
 
             if (userInput > 0 && userInput <= 64) {
+                
                 while(container.firstChild){
                     container.removeChild(container.firstChild);
                 }
@@ -69,15 +88,25 @@
                 document.documentElement.style.setProperty('--grid', `repeat(${userInput},${divSize}px)`);
             }
             else alert('Invalid');
-            }
-                
-        const rainbowButton = document.querySelector('#rainbow'); 
-        rainbowButton.addEventListener('click', function(event) {
-            console.log('hi!');
-        })   
-
+            };
+        } );
         
-        });
+        function randomColor() {
+            let randomColor = Math.floor(Math.random()*16777215).toString(16);
+            document.documentElement.style.setProperty('--background-color', randomColor);
+            
+        }    
+        
+        const rainbowButton = document.querySelector('#rainbow'); 
+        rainbowButton.addEventListener('click', function(e) {
+            container.removeEventListener('mouseover', setColor);
+            counter++;
+            container.addEventListener('mouseover', setColor);
+            
+        })   
+        
+        
+        
         
     </script>
 </html>
